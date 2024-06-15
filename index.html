@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Interface</title>
+    
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.container {
+    display: flex;
+}
+
+.filter-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    margin: 20px;
+    flex-shrink: 0;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.selected-filters {
+    margin-bottom: 20px;
+}
+
+.filter-section {
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.flight-options, .budget-options, .hotel-options, .duration-options {
+    display: flex;
+    flex-direction: column;
+}
+
+.flight-button {
+    padding: 10px;
+    border: none;
+    background-color: #e0e0e0;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.flight-button.active {
+    background-color: #007BFF;
+    color: white;
+}
+
+.budget-options label, .hotel-options label, .duration-options label {
+    margin-bottom: 5px;
+}
+
+input[type="range"] {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#budgetValue, #durationValue {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+#filteredResults {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-container {
+    width: calc(33.33% - 20px);
+    margin: 10px;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="filter-container">
+            <h2>FILTERS</h2>
+
+            <div class="selected-filters">
+                <p id="selectedBudget">Selected Budget: ₹0 - ₹15,000</p>
+                <p id="selectedDuration">Selected Duration: 7 days</p>
+                <p id="selectedHotelCategory">Selected Hotel Category: None</p>
+            </div>
+            
+            <div class="filter-section">
+                <h3>Flights</h3>
+                <div class="flight-options">
+                    <button class="flight-button active">With Flight (26)</button>
+                    <button class="flight-button">Without Flight (50)</button>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Budget</h3>
+                <input type="range" id="budgetRange" min="0" max="15000" step="1000" value="15000" oninput="updateBudgetValue(this.value)">
+                <span id="budgetValue">₹15,000</span>
+                <div class="budget-options">
+                    <label><input type="checkbox" class="budget-checkbox" data-min="0" data-max="15000" checked> ₹0 - ₹15,000 (50)</label>
+                    <label><input type="checkbox" class="budget-checkbox" data-min="15000" data-max="20000"> ₹15,000 - ₹20,000 (47)</label>
+                    <label><input type="checkbox" class="budget-checkbox" data-min="20000" data-max="35000"> ₹20,000 - ₹35,000 (51)</label>
+                    <label><input type="checkbox" class="budget-checkbox" data-min="35000" data-max="100000"> > ₹35,000 (26)</label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Duration</h3>
+                <input type="range" id="durationRange" min="1" max="14" step="1" value="7" oninput="updateDurationValue(this.value)">
+                <span id="durationValue">7 days</span>
+                <div class="duration-options">
+                    
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Hotel Category</h3>
+                <div class="hotel-options">
+                    <label><input type="checkbox" class="hotel-checkbox" value="2★"> 2★ (0)</label>
+                    <label><input type="checkbox" class="hotel-checkbox" value="3★"> 3★ (24)</label>
+                    <label><input type="checkbox" class="hotel-checkbox" value="4★"> 4★ (28)</label>
+                    <label><input type="checkbox" class="hotel-checkbox" value="5★"> 5★ (3)</label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <button id="submitFilters">Submit</button>
+            </div>
+        </div>
+        <div class="content">
+            <div id="filteredResults">
+                <!-- Placeholder for filtered results -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
